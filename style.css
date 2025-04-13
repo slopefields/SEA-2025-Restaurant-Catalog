@@ -101,12 +101,12 @@ body {
 #card-container {
   display: grid;
   justify-content: center;
-  grid-template-columns: 650px 650px 650px;
+  grid-template-columns: 500px 500px 500px;
 }
 
 .card {
-  width: 600px;
-  height: 800px;
+  width: 450px;
+  height: 775px;
   display: block;
   border-radius: 15px;
   overflow: hidden;
