@@ -23,39 +23,40 @@
  *
  */
 
-// Import all restaurant objects from restaurant-data.js
-import { PAPA_JOHNS, BOILING_POINT, MCDONALDS, OOTORO, BURGER_KING, CAVA, CHIPOTLE, POPEYES, STARBUCKS, CHEESECAKE_FACTORY, NOBU, GUELAGUETZA } from './restaurant-data.js';
+// Import array of all restaurant objects from restaurant-data.js
+import { RESTAURANTS } from './restaurant-data.js';
+// Taking a copy of RESTAURANTS because sorting would modify original otherwise
+let restaurants = [...RESTAURANTS];  
 
-// Array to store all restaurant objects
-const restaurants = [
-  PAPA_JOHNS,
-  BOILING_POINT,
-  MCDONALDS,
-  OOTORO,
-  BURGER_KING,
-  CAVA,
-  CHIPOTLE,
-  POPEYES,
-  STARBUCKS,
-  NOBU,
-  CHEESECAKE_FACTORY,
-  GUELAGUETZA,
-];
+// Constant variables for elements
+const countDisplay = document.getElementById("count-display");
+const sortDropdown = document.getElementById("filter-dropdown");
+const cardContainer = document.getElementById("card-container");
+const searchBar = document.getElementById("search-bar")
 
-// This function adds cards the page to display the data in the array
+// Set up everything: shows cards, updates counter to display accurate number of results 
 function showCards() {
-  const cardContainer = document.getElementById("card-container");
   cardContainer.innerHTML = "";
   const templateCard = document.querySelector(".card");
+  const numRestaurants = restaurants.length;
 
-  for (let i = 0; i < restaurants.length; i++) {
+  // Loop through restaurants array to display each card
+  for (let i = 0; i < numRestaurants; i++) {
     let restaurant = restaurants[i];
     console.log("added restaurant number ", i);
 
     const nextCard = templateCard.cloneNode(true); // Copy the template card
     editCardContent(nextCard, restaurant); // Edit title and image
-    cardContainer.appendChild(nextCard); // Add new card to the container
+    cardContainer.appendChild(nextCard); // Add new card to the container 
   }
+  // Update counter to show how many cards there are
+  setCountDisplay(numRestaurants);
+  const cards = document.querySelectorAll(".card");
+  console.log(cards);
+}
+
+function setCountDisplay(restaurantCount) {
+  countDisplay.textContent = "Displaying " + restaurantCount + " results:";
 }
 
 function editCardContent(card, restaurant) {
@@ -66,7 +67,7 @@ function editCardContent(card, restaurant) {
   const cardAddress = card.querySelector("#address");
   const cardRating = card.querySelector("#rating");
   const cardReviewCount = card.querySelector("#review-count");
-  const cardImage = card.querySelector("#image");
+  const cardImage = card.querySelector("img");
 
   cardHeader.textContent = restaurant.name;
   cardCategories.textContent = restaurant.categories;
@@ -74,9 +75,56 @@ function editCardContent(card, restaurant) {
   cardRating.textContent = restaurant.rating + " ★";
   cardReviewCount.textContent = restaurant.reviewCount + " reviews";
   cardImage.src = restaurant.image;
+  
+  cardImage.style.height = "550px";
 
   console.log("Added a new card for ", restaurant.name, "- html: ", card);
 }
+
+// Search bar functionality
+function search(input) {
+    const cards = document.querySelectorAll(".card");
+    console.log(cards);
+    cards.forEach(card => {
+      // Omitting last card because invisible template card
+      if (card != cards[cards.length - 1])
+      {
+        const restaurantName = card.querySelector("#name").textContent.toLowerCase();
+        if (restaurantName.includes(input.toLowerCase()))
+          card.style.display = "block";
+        else
+          card.style.display = "none";
+    }
+  })  
+}
+
+// Filter to sort cards in a given order
+function filter(sortBy) {
+  if (sortBy == "filter-default")
+  {
+    restaurants = [...RESTAURANTS];
+    showCards();
+  }
+  if (sortBy == "filter-name-ascending")
+  {
+    restaurants.sort((a, b) => a.name.localeCompare(b.name));
+    showCards();
+  }
+  else if (sortBy == "filter-rating-descending")
+  { 
+    restaurants.sort((a,b) => b.rating - a.rating);
+    showCards();
+  }
+  else if (sortBy == "filter-review-count-descending")
+  {
+    restaurants.sort((a,b) => b.reviewCount - a.reviewCount);
+    showCards();
+  }
+}
+
+searchBar.addEventListener("keyup", () => search(searchBar.value));
+
+sortDropdown.addEventListener("change", () => filter(sortDropdown.value));
 
 // This calls the addCards() function when the page is first loaded
 document.addEventListener("DOMContentLoaded", showCards);
