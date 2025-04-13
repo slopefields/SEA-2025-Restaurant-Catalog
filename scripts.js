@@ -85,6 +85,7 @@ function editCardContent(card, restaurant) {
 // Search bar functionality
 function search(input) {
     const cards = document.querySelectorAll(".card");
+    let numDisplayed = 0;
     cards.forEach(card => {
       // Omitting last card because invisible template card
       if (card != cards[cards.length - 1])
@@ -93,12 +94,14 @@ function search(input) {
         if (restaurantName.includes(input.toLowerCase()))
         {
           card.style.display = "block";
+          numDisplayed++;
           console.log(`Search result of: "${input}" matched restaurant: ${restaurantName}`)
         }
         else
           card.style.display = "none";
-    }
+      }
   })  
+  setCountDisplay(numDisplayed);
 }
 
 // Filter to sort cards in a given order
