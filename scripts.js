@@ -32,7 +32,8 @@ let restaurants = [...RESTAURANTS];
 const countDisplay = document.getElementById("count-display");
 const sortDropdown = document.getElementById("filter-dropdown");
 const cardContainer = document.getElementById("card-container");
-const searchBar = document.getElementById("search-bar")
+const searchBar = document.getElementById("search-bar");
+const toTopButton = document.getElementById("back-to-top");
 
 // Set up everything: shows cards, updates counter to display accurate number of results 
 function showCards() {
@@ -122,9 +123,15 @@ function filter(sortBy) {
   }
 }
 
+function backToTop() {
+  document.documentElement.scrollTop = 0;
+}
+
 searchBar.addEventListener("keyup", () => search(searchBar.value));
 
 sortDropdown.addEventListener("change", () => filter(sortDropdown.value));
+
+toTopButton.addEventListener("click", backToTop);
 
 // This calls the addCards() function when the page is first loaded
 document.addEventListener("DOMContentLoaded", showCards);
