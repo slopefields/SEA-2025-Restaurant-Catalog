@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>LA TV Shows | Home</title>
-    <meta name="description" content="A Catalog of Shows Set in Los Angeles" />
-    <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="scripts.js"></script>
-  </head>
 
-  <body>
-    <header class="main-header">
-      <h1 class="title">LA TV Shows</h1>
-    </header>
-    <div id="card-container"></div>
-    <div class="card" style="display: none">
-      <div class="card-content">
-        <h2>TV Show Title</h2>
-        <img src="" alt="TV Show Poster" />
-        <ul>
-          <li>Bullet Point 1</li>
-          <li>Bullet Point 2</li>
-          <li>Bullet Point 3</li>
-        </ul>
-      </div>
+<head>
+  <title>Restaurant Catalog</title>
+  <meta name="description" content="A Catalog of Various Restaurants Throughout Southern California" />
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="scripts.js"></script>
+</head>
+
+<body>
+  <header class="main-header">
+    <h1 class="title">Restaurant Catalog</h1>
+  </header>
+  <div id="operations">
+    <div id="search">
+      <input type="text" id="search-bar" placeholder="Search by name...">
     </div>
-    <div class="footer">
-      <button onclick="quoteAlert();">Get A Quote!</button>
-      <button onclick="removeLastCard();">Remove A Card!</button>
+    <div id="filter-settings">
+      <label>Sort by:</label>
+      <select id="filter-dropdown">
+        <option value="filter-default">Default</option>
+        <option value="filter-name-ascending">Name (A-Z)</option>
+        <option value="filter-rating-descending">Rating (Descending)</option>
+        <option value="filter-review-count-descending">Review Count (Descending)</option>
+      </select>
     </div>
-  </body>
+  </div>
+  <h2 id="count-display">Displaying X results:</h2>
+  <div id="card-container"></div>
+  <div class="card" style="display: none">
+    <img id="image" src="" alt="Restaurant Image" />
+    <div class="card-content">
+      <h2 id="name">Restaurant Name</h2>
+      <p id="categories">Categories</p>
+      <p id="address">Address</p>
+      <p id="rating">Rating</p>
+      <p id="review-count">Review Count</p>
+    </div>
+  </div>
+  <div class="footer">
+    <button id="back-to-top">Back To Top</button>
+  </div>
+</body>
+
 </html>
