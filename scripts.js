@@ -85,14 +85,16 @@ function editCardContent(card, restaurant) {
 // Search bar functionality
 function search(input) {
     const cards = document.querySelectorAll(".card");
-    console.log(cards);
     cards.forEach(card => {
       // Omitting last card because invisible template card
       if (card != cards[cards.length - 1])
       {
         const restaurantName = card.querySelector("#name").textContent.toLowerCase();
         if (restaurantName.includes(input.toLowerCase()))
+        {
           card.style.display = "block";
+          console.log(`Search result of: "${input}" matched restaurant: ${restaurantName}`)
+        }
         else
           card.style.display = "none";
     }
