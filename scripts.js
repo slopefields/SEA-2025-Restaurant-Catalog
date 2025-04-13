@@ -109,23 +109,20 @@ function filter(sortBy) {
   if (sortBy == "filter-default")
   {
     restaurants = [...RESTAURANTS];
-    showCards();
   }
-  if (sortBy == "filter-name-ascending")
+  else if (sortBy == "filter-name-ascending")
   {
     restaurants.sort((a, b) => a.name.localeCompare(b.name));
-    showCards();
   }
   else if (sortBy == "filter-rating-descending")
   { 
     restaurants.sort((a,b) => b.rating - a.rating);
-    showCards();
   }
   else if (sortBy == "filter-review-count-descending")
   {
     restaurants.sort((a,b) => b.reviewCount - a.reviewCount);
-    showCards();
   }
+  showCards();
 }
 
 function backToTop() {
